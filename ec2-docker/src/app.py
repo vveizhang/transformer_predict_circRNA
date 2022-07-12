@@ -3,7 +3,7 @@ from funcs import load_model, read_input, run_model
 
 st.title("Transformer non-coding RNA Classifier")
 st.write('This app uses Transformer model to identify the category of any input non-coding RNA sequence')
-st.markdown('The source code for this app can be found in this GitHub repo: ')
+st.markdown('The source code for this app can be found in this GitHub repo: [github.com/vveizhang/transformer_predict_circRNA](https://github.com/vveizhang/transformer_predict_circRNA)')
 
 example_text = """
 GCATGTTGGCATTGAACATTGACGAAGCTATTACATTGCTTGAACAATTGGGACTTAGTGGCAGCTATCAATGGTGTAATACCACAGGATGGCATTCTACAAAGTGAATATGGAGGTGAGACCATACCAGGACCTGCATTTAATCCAGCAAGTCATCCAGCTTCAGCTCCTACTTCCTCTTCTTCTTCAGCGTTTCGACCTGTAATGCCATCCAGGCAGATTGTAGAAAGGCAACCTCGGATGCTGGACTTCAGGGTTGAATACAGAGACAGAAATGTTGATGTGGTACTTGAAGACACCTGTACTGTTG
