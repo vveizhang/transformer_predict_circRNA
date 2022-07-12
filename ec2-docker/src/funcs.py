@@ -92,7 +92,7 @@ def read_input(input_data, content_type= 'application/json'):
     if len(seq) >= 400:
         seq =  seq[0:400] 
     kmers = build_kmers(seq,5)
-    src_vocab = get_vocab('https://sagemaker-us-east-2-411668307327.s3.us-east-2.amazonaws.com/circRNA/vocab.csv')
+    src_vocab = get_vocab('https://www.dropbox.com/s/7ubm7ad2if5a17y/vocab.csv?dl=1')
     tokens=[src_vocab[kmer] for kmer in kmers]
     input_object = torch.tensor(tokens, dtype=torch.float32).to(device)
     return input_object
