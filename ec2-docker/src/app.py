@@ -33,4 +33,5 @@ if st.button("Run Transformer!"):
             model_input = read_input(input_text)
             model_output = run_model(model_input, model)
             predicted_label = 'circRNA' if model_output == 1.0 else 'lincRNA'
+            st.write(model_output)
             st.write(predicted_label)
