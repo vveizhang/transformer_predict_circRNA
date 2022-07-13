@@ -312,7 +312,7 @@ Then run the container from the build image:
 docker container run -p 8501:8501 -d streamlit:circRNA-transformer
 ```
 
-Now, you can access the Streamlit app at `[<EC2 public IP address>](http://3.142.92.255:8501/)`(EC2 public IP address can be found under "IPv4 Public IP" in the AWS console)!
+Now, you can access the Streamlit app at [Here](http://3.142.92.255:8501/)(EC2 public IP address can be found under "IPv4 Public IP" in the AWS console)!
 
 ## 7. Summary
 
