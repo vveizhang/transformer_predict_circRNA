@@ -48,7 +48,7 @@ The decoder, on the right half of the architecture, receives the output of the e
 
 ### 1.2 Amazon SageMaker
 
-[Amazon SageMaker](https://aws.amazon.com/sagemaker/) is a great tool to train and deploy deep learning models on cloud instances with a fully-managed infrastructure provided by AWS. Within minutes, you can build, train and deploy a model in a Jupyter Notebook and don't have to worry about environment setup, because it comes with many pre-built Conda environments and Docker containers. It's a huge life-saver for data scientists like me.
+[Amazon SageMaker](https://aws.amazon.com/sagemaker/) SageMaker provides every developer and data scientist with the ability to build, train, and deploy machine learning models quickly. Within minutes, you can build, train and deploy a model in a Jupyter Notebook.
 
 ### 1.3 circRNAs
 
