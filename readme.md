@@ -11,7 +11,7 @@
   - [1. Introduction](#1-introduction)
     - [1.1 Transformers](#11-transformers)
     - [1.2 Amazon SageMaker](#12-amazon-sagemaker)
-  - [1.3 circRNAs](#13-circrnas)
+    - [1.3 circRNAs](#13-circrnas)
   - [2. Dataset](#2-dataset)
   - [3. Demo](#3-demo)
   - [4. Training and deployment of GPT-2 on SageMaker](#4-training-and-deployment-of-gpt-2-on-sagemaker)
@@ -49,7 +49,7 @@ The decoder, on the right half of the architecture, receives the output of the e
 
 [Amazon SageMaker](https://aws.amazon.com/sagemaker/) is a great tool to train and deploy deep learning models on cloud instances with a fully-managed infrastructure provided by AWS. Within minutes, you can build, train and deploy a model in a Jupyter Notebook and don't have to worry about environment setup, because it comes with many pre-built Conda environments and Docker containers. It's a huge life-saver for data scientists like me.
 
-## 1.3 circRNAs
+### 1.3 circRNAs
 
 Circular RNAs are diverse RNA species that are found in all live forms from archaea to humans. Although, circRNAs have been discovered over 20 years ago they were initially dismissed for having low abundance or resulting from splicing errors. However, recent advancements in high throughput sequencing revealed the presence of circRNAs in mammalian cells, across various cell lines and many transcripts are abundant and stable. CircRNAs are generated through a mechanism known as back-splicing “tail” to “head” whereby an exon at the 3′end of a gene is back-spliced to an exon at the 5′end of the gene resulting in a circular RNA form. CircRNAs are dispersed throughout the genome. They can arise mainly from exons but circRNAs deriving from inter- or intragenic, and intronic regions as well as antisense sequences have been reported.
 
