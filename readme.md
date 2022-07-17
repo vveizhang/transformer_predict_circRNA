@@ -122,7 +122,7 @@ The `pad_sequences` function will pad all the input sequence into the same lengt
 <p align="center">
 <img src="/imgs/K-mers.png">
 <br>
-<em>Image by Author</em></p>
+<em>Schematic representation of kmers. from https://[doi.org/10.3389/fphar.2019.00428](https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-019-5467-x)</em></p>
 
 The `TextTransformer` class in *train.py* is responsible for building a classifier from the scratch. Instead of a positional encoding, I did a positional embedding here. So this model has two embedding steps: word embeddings and position embeddings.
 
