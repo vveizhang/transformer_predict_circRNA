@@ -119,6 +119,11 @@ def Kmers(sequence):
 ```
 The `pad_sequences` function will pad all the input sequence into the same length (max_length), the `build_kmers` and `Kmers` functions will be used to build the vocabulary. A DNA sequence can be viewed as a collection of k-mers by breaking the sequence into nucleotide substrings of length k, as illustrated in the Figure.
 
+<p align="center">
+<img src="/imgs/K-mers.png">
+<br>
+<em>Image by Author</em></p>
+
 The `TextTransformer` class in *train.py* is responsible for building a classifier from the scratch. Instead of a positional encoding, I did a positional embedding here. So this model has two embedding steps: word embeddings and position embeddings.
 
 ```python
