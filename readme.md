@@ -15,7 +15,7 @@
     - [1.3 circRNAs](#13-circrnas)
   - [2. Dataset](#2-dataset)
   - [3. Demo](#3-demo)
-  - [4. Training and deployment of GPT-2 on SageMaker](#4-training-and-deployment-of-gpt-2-on-sagemaker)
+  - [4. Training and deployment of Transformer on SageMaker](#4-training-and-deployment-of-Transformer-on-sagemaker)
     - [4.1. Create an Amazon SageMaker notebook instance](#41-create-an-amazon-sagemaker-notebook-instance)
     - [4.2. Training and deployment](#42-training-and-deployment)
     - [4.3. The code](#43-the-code)
@@ -75,7 +75,7 @@ I built an [Online circRNA Classifier](http://3.142.92.255:8501/) using [Streaml
 <br>
 <em>Image by Author</em></p>
 
-## 4. Training and deployment of GPT-2 on SageMaker
+## 4. Training and deployment of Transformer on SageMaker
 
 ### 4.1. Create an Amazon SageMaker notebook instance
 
