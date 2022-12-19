@@ -1,3 +1,4 @@
+# import libraries
 import math
 import argparse
 import collections
@@ -32,6 +33,7 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 logger.addHandler(logging.StreamHandler(sys.stdout))
 
+# Define the padding function to pad all sequences to max length
 def pad_sequences(seqs,max_length=400,unk_index=64):
     pad_seqs=[]
     for seq in seqs:
@@ -44,6 +46,7 @@ def pad_sequences(seqs,max_length=400,unk_index=64):
             
     return pad_seqs
 
+# Define the function to build kmers
 def build_kmers(sequence, ksize):
     kmers = []    
     n_kmers = len(sequence) - ksize + 1
@@ -59,11 +62,13 @@ def Kmers(sequence):
         Kmers.append(build_kmers(seq,5))
     return Kmers
 
+# Cause AWS s3 doesn't allow user to store .json file, so i converted the vocabulary file to .csv, and convert it back
 def get_vocab(vocab_dir):
     vocab_csv = pd.read_csv(vocab_dir)
     src_vocab = dict(zip(vocab_csv.kmer,vocab_csv.num))
     return src_vocab
 
+# Define MyDataset from class Dataset
 class MyDataset(Dataset):
     def __init__(self, df, src_vocab):
         self.df = df
@@ -84,6 +89,8 @@ class MyDataset(Dataset):
 
 #len(src_vocab) 1366
 
+
+# Construct transformer model using nn.Module
 class TextTransformer(nn.Module):
   def __init__(self):
     super(TextTransformer,self).__init__()
@@ -107,15 +114,18 @@ class TextTransformer(nn.Module):
     out = torch.sigmoid(self.linear4(linear3))
     return out
 
+# save model to device
 myTransformer = TextTransformer().to(device)
 model = myTransformer.to(device)
 
+# define metrics of the model
 def calculateMetrics(ypred,ytrue):
   acc  = accuracy_score(ytrue,ypred)
   f1  = f1_score(ytrue,ypred)
   f1_average  = f1_score(ytrue,ypred,average="macro")
   return " f1 score: "+str(round(f1,3))+" f1 average: "+str(round(f1_average,3))+" accuracy: "+str(round(acc,3))
 
+# define function to load the model data
 def model_fn(model_dir):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model = myTransformer.to(device)
@@ -123,6 +133,7 @@ def model_fn(model_dir):
         model.load_state_dict(torch.load(f))
     return model.to(device)
 
+# define function to convert input json data to torch tensor
 def input_fn(input_data, content_type= 'application/json'):
     #if content_type == 'text/plain':
     input = json.loads(input_data)
@@ -139,6 +150,7 @@ def input_fn(input_data, content_type= 'application/json'):
         #data=torch.tensor(tokens, dtype=torch.float32)
     return torch.tensor(tokens, dtype=torch.float32).to(device)
 
+# define the predict function to load model and make the prediction
 # Perform prediction on the deserialized object, with the loaded model
 def predict_fn(input_object, model):
     with torch.no_grad():       
@@ -206,14 +218,7 @@ if __name__ == "__main__":
 
     train_data = MyDataset(df_train, src_vocab)
     test_data = MyDataset(df_test, src_vocab)
-#dataAll = MyDataset(df.kmers,df.label)
-# train_data = MyDataset(df1.kmers,df1.label,)
-# train_itr = DataLoader(dataset=train_data, batch_size=batch_size, shuffle=True)
 
-# test_data = MyDataset(df2.kmers,df2.label)
-# test_itr = DataLoader(dataset=test_data, batch_size=batch_size, shuffle=True)
-
-# train_data, test_data=torch.utils.data.random_split(dataAll,(30467,19000))
     train_itr= DataLoader(dataset=train_data, batch_size=batch_size, shuffle=True)
     test_itr= DataLoader(dataset=test_data, batch_size=batch_size, shuffle=True)
     model = myTransformer.to(device) 

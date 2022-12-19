@@ -15,7 +15,7 @@
     - [1.3 circRNAs](#13-circrnas)
   - [2. Dataset](#2-dataset)
   - [3. Demo](#3-demo)
-  - [4. Training and deployment of Transformer on SageMaker](#4-training-and-deployment-of-Transformer-on-sagemaker)
+  - [4. Training and deployment of Transformer on SageMaker](#4-training-and-deployment-of-transformer-on-sagemaker)
     - [4.1. Create an Amazon SageMaker notebook instance](#41-create-an-amazon-sagemaker-notebook-instance)
     - [4.2. Training and deployment](#42-training-and-deployment)
     - [4.3. The code](#43-the-code)
@@ -94,6 +94,7 @@ Run [this notebook](https://github.com/vveizhang/transformer_predict_circRNA/blo
 
 Since we are building and training a PyTorch model in this project, it is recommended by [**SageMaker Python SDK**](https://sagemaker.readthedocs.io/en/stable/frameworks/pytorch/using_pytorch.html#train-a-model-with-pytorch) to prepare a separate `train.py` script to construct and store model functions used by SageMaker. Since all the pretrained model are not suitable for DNA/RNA sequence analysis, we will write our own model.
 ```python
+# Define the padding function to pad all sequences to max length
 def pad_sequences(seqs,max_length=400,unk_index=64):
     pad_seqs=[]
     for seq in seqs:
@@ -103,6 +104,7 @@ def pad_sequences(seqs,max_length=400,unk_index=64):
             pad_seqs.append(seq[0:max_length])           
     return pad_seqs
 
+# Define the function to build kmers
 def build_kmers(sequence, ksize):
     kmers = []    
     n_kmers = len(sequence) - ksize + 1
@@ -127,6 +129,7 @@ The `pad_sequences` function will pad all the input sequence into the same lengt
 The `TextTransformer` class in *train.py* is responsible for building a classifier from the scratch. Instead of a positional encoding, I did a positional embedding here. So this model has two embedding steps: word embeddings and position embeddings.
 
 ```python
+# Construct transformer model using nn.Module
 class TextTransformer(nn.Module):
   def __init__(self):
     super(TextTransformer,self).__init__()
@@ -154,6 +157,7 @@ class TextTransformer(nn.Module):
 The `model_fn`,`input_fn`,`predict_fn`,`output_fn`,`save_model` functions in *train.py* will be responsible for the communications to the AWS sagemaker APIs to load the model weights/parameters, encode input, make predictions, output the predict results and save model weights/parameters.
 
 ```python
+# define function to load the saved model data
 def model_fn(model_dir):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model = myTransformer.to(device)
@@ -161,6 +165,7 @@ def model_fn(model_dir):
         model.load_state_dict(torch.load(f))
     return model.to(device)
 
+# define function to convert input json data to torch tensor
 def input_fn(input_data, content_type= 'application/json'):
     input = json.loads(input_data)
     seq = input["text"]
@@ -174,10 +179,12 @@ def input_fn(input_data, content_type= 'application/json'):
     tokens=[src_vocab[kmer] for kmer in kmers]
     return torch.tensor(tokens, dtype=torch.float32).to(device)
 
+# Perform prediction on the deserialized object, with the loaded model
 def predict_fn(input_object, model):
     with torch.no_grad():       
         return model(input_object.unsqueeze(0).to(device))
 
+# Serialize the prediction result into the desired response content type
 def output_fn(prediction, accept="text/plain"):
     result = np.round(prediction.cpu().item())   
     return str(result)
@@ -202,6 +209,7 @@ Then deploy the trained model into the inference endpoint.
 
 Create an AWS lambda function `predict_circRNA_transformer` to invoke the inference endpoint. Below is the code for the lambda handler:
 ```python
+# import libraries
 import os
 import io
 import boto3
