@@ -263,7 +263,7 @@ Follow [this tutorial](https://docs.aws.amazon.com/efs/latest/ug/gs-step-one-cre
 After launching the EC2 instance, use SSH to connect to the instance:
 
 ```bash
-ssh -i ec2-gpt2-streamlit-app.pem ec2-user@your-instance-DNS-address.us-east-1.compute.amazonaws.com
+ssh -i ec2-transformer.pem ec2-user@your-instance-DNS-address.us-east-1.compute.amazonaws.com
 ```
 
 Then, copy my code into the cloud using `git`:
