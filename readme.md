@@ -170,12 +170,9 @@ def input_fn(input_data, content_type= 'application/json'):
     input = json.loads(input_data)
     seq = input["text"]
     seq = seq.upper().replace("U","T")
-    if len(seq) < 400:
-        seq =  str(seq) + "0" * (400 - len(str(seq)))
-    if len(seq) >= 400:
-        seq =  seq[0:400] 
     kmers = build_kmers(seq,5)
-    src_vocab = get_vocab('https://sagemaker-us-east-2-411668307327.s3.us-east-2.amazonaws.com/circRNA/vocab.csv')
+    src_vocab = get_vocab(
+    'https://sagemaker-us-east-2-411668307327.s3.us-east-2.amazonaws.com/circRNA/vocab.csv')
     tokens=[src_vocab[kmer] for kmer in kmers]
     return torch.tensor(tokens, dtype=torch.float32).to(device)
 
