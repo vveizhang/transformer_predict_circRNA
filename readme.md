@@ -68,7 +68,7 @@ CircRNAs sequences were extracted from the circRNADb database and other lncRNAs 
 
 ## 3. Demo
 
-I built an [Online circRNA Classifier](http://3.133.127.58:8501/) using [Streamlit](https://streamlit.io/) running the trained model. You can input or paste any noncoding RNA sequence, the online app will predict if the noncoding RNA is a circRNA or not.
+I built an [Online circRNA Classifier](http://3.145.73.72:8501/) using [Streamlit](https://streamlit.io/) running the trained model. You can input or paste any noncoding RNA sequence, the online app will predict if the noncoding RNA is a circRNA or not.
 
 <p align="center">
 <img src="/imgs/Streamlit.png">
@@ -323,7 +323,7 @@ Then run the container from the build image:
 docker container run -p 8501:8501 -d streamlit:circRNA-transformer
 ```
 
-Now, you can access the Streamlit app at [Here](http://3.133.127.58:8501/)(EC2 public IP address can be found under "IPv4 Public IP" in the AWS console)!
+Now, you can access the Streamlit app at [Here](http://3.145.73.72:8501/)(EC2 public IP address can be found under "IPv4 Public IP" in the AWS console)!
 
 ## 7. Summary
 
