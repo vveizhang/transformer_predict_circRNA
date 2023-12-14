@@ -141,7 +141,7 @@ class TextTransformer(nn.Module):
             pos_emb_size (int): Size of the position embeddings.
             word_emb_size (int): Size of the word embeddings.
             device (torch.device): Device to run the model on.
-        """  
+        """
     super(TextTransformer,self).__init__()
     self.wordEmbeddings = nn.Embedding(vocab_size,seq_len)
     self.positionEmbeddings = nn.Embedding(seq_len,posEmbSize)
